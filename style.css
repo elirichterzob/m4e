@@ -96,6 +96,12 @@ body {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Add a subtle shadow when active */
 }
 
+/* Nouvelle classe pour les boutons sélectionnés (cliqués) */
+.scheme-button.selected {
+    border: 3px solid red; /* Cadre rouge */
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .scheme-group {

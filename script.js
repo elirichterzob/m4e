@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const schemeButtons = document.querySelectorAll('.scheme-button');
-    const resetButton = document.getElementById('resetButton'); // Récupérer le bouton de réinitialisation
+    const resetButton = document.getElementById('resetButton');
+    const undoButton = document.createElement('button'); // Créer le bouton "Annuler"
+    undoButton.id = 'undoButton';
+    undoButton.className = 'reset-button'; // Réutiliser le style du bouton de réinitialisation
+    undoButton.textContent = 'Annuler le dernier clic';
+    resetButton.parentNode.insertBefore(undoButton, resetButton.nextSibling); // Insérer après le bouton de réinitialisation
 
-    // Mappe les schémas aux schémas suivants disponibles, basés sur les informations du PDF.
+    let selectedSchemes = new Set();
+    let history = []; // Pile pour stocker les états précédents
+
     const nextAvailableSchemes = {
         "BREAKTHROUGH": ["ASSASSINATE", "PUBLIC DEMONSTRATION", "FRAME JOB"],
         "FRAME JOB": ["PUBLIC DEMONSTRATION", "HARNESS THE LEYLINE", "SCOUT THE ROOFTOPS"],
@@ -21,12 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
         "LEAVE YOUR MARK": ["TAKE THE HIGHGROUND", "MAKE IT LOOK LIKE AN ACCIDENT", "RESHAPE THE LAND"]
     };
 
-    // Fonction pour désactiver tous les boutons et retirer la classe 'active'
-    function deactivateAllButtons() {
+    // Fonction pour désactiver tous les boutons non actifs
+    function deactivateAllNonActiveButtons() {
         schemeButtons.forEach(button => {
-            button.classList.remove('active');
-            button.style.pointerEvents = 'none'; // Rendre le bouton non cliquable
-            button.style.opacity = '0.5'; // Rendre le bouton légèrement transparent pour montrer qu'il est désactivé
+            if (!button.classList.contains('active')) {
+                button.style.pointerEvents = 'none';
+                button.style.opacity = '0.5';
+            }
         });
     }
 
@@ -34,18 +42,71 @@ document.addEventListener('DOMContentLoaded', () => {
     function activateButton(buttonId) {
         const button = document.getElementById(buttonId);
         if (button) {
-            button.style.pointerEvents = 'auto'; // Rendre le bouton cliquable
-            button.style.opacity = '1'; // Rendre le bouton opaque
+            button.style.pointerEvents = 'auto';
+            button.style.opacity = '1';
         }
+    }
+
+    // Fonction pour mettre à jour l'état visuel de tous les boutons
+    function updateButtonStates() {
+        schemeButtons.forEach(button => {
+            const schemeId = button.dataset.scheme;
+            if (selectedSchemes.has(schemeId)) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+        // Mettre à jour l'état du bouton Annuler
+        undoButton.disabled = history.length === 0;
+        undoButton.style.opacity = history.length === 0 ? '0.5' : '1';
+        undoButton.style.cursor = history.length === 0 ? 'not-allowed' : 'pointer';
     }
 
     // Fonction pour réinitialiser la page à son état initial
     function resetPage() {
+        selectedSchemes.clear();
+        history = []; // Vider l'historique lors de la réinitialisation
         schemeButtons.forEach(button => {
-            button.classList.remove('active'); // Retirer l'état actif de tous les boutons
-            button.style.pointerEvents = 'auto'; // Rendre tous les boutons cliquables
-            button.style.opacity = '1'; // Rendre tous les boutons entièrement visibles
+            button.classList.remove('active');
+            button.classList.remove('selected');
+            button.style.pointerEvents = 'auto';
+            button.style.opacity = '1';
         });
+        updateButtonStates(); // Mettre à jour l'état du bouton Annuler
+    }
+
+    // Fonction pour restaurer un état précédent
+    function restoreState(state) {
+        selectedSchemes = new Set(state.selectedSchemes);
+        schemeButtons.forEach(button => {
+            button.classList.remove('active'); // Nettoyer l'état actif précédent
+            button.style.pointerEvents = 'none'; // Désactiver tous les boutons initialement
+            button.style.opacity = '0.5';
+        });
+
+        // Appliquer l'état actif sauvegardé
+        if (state.activeScheme) {
+            const activeButton = document.getElementById(state.activeScheme);
+            if (activeButton) {
+                activeButton.classList.add('active');
+                activateButton(state.activeScheme);
+            }
+            // Réactiver les dépendances de l'état actif
+            const nextSchemes = nextAvailableSchemes[state.activeScheme];
+            if (nextSchemes) {
+                nextSchemes.forEach(nextSchemeId => {
+                    activateButton(nextSchemeId);
+                });
+            }
+        } else {
+            // Si pas d'état actif (début ou après annulation complète)
+            schemeButtons.forEach(button => {
+                button.style.pointerEvents = 'auto';
+                button.style.opacity = '1';
+            });
+        }
+        updateButtonStates();
     }
 
     // Initialisation : Tous les boutons sont cliquables et visibles au départ
@@ -53,19 +114,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     schemeButtons.forEach(button => {
         button.addEventListener('click', () => {
+            // Sauvegarder l'état actuel avant de le modifier
+            history.push({
+                selectedSchemes: new Set(selectedSchemes), // Copie du Set
+                activeScheme: document.querySelector('.scheme-button.active')?.dataset.scheme // Sauvegarder le bouton actuellement actif
+            });
+
             const selectedScheme = button.dataset.scheme;
 
-            // Désactiver tous les boutons
-            deactivateAllButtons();
+            if (selectedSchemes.has(selectedScheme)) {
+                selectedSchemes.delete(selectedScheme);
+            } else {
+                selectedSchemes.add(selectedScheme);
+            }
+
+            // Réinitialiser les classes 'active' de tous les boutons
+            schemeButtons.forEach(btn => btn.classList.remove('active'));
 
             // Activer le bouton qui vient d'être cliqué
             button.classList.add('active');
-            activateButton(selectedScheme); // S'assurer qu'il est cliquable et visible
 
-            // Récupérer les schémas disponibles suivants pour le schéma sélectionné
+            // Mettre à jour l'état visuel et les interactions
+            updateButtonStates();
+            deactivateAllNonActiveButtons(); // Désactiver tous les boutons qui ne sont pas 'active'
+            activateButton(selectedScheme); // S'assurer que le bouton cliqué reste actif et interactif
+
             const nextSchemes = nextAvailableSchemes[selectedScheme];
-
-            // Activer uniquement les schémas dépendants
             if (nextSchemes) {
                 nextSchemes.forEach(nextSchemeId => {
                     activateButton(nextSchemeId);
@@ -74,6 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Ajouter l'écouteur d'événement pour le bouton de réinitialisation
+    // Écouteur d'événement pour le bouton de réinitialisation
     resetButton.addEventListener('click', resetPage);
+
+    // Écouteur d'événement pour le bouton "Annuler"
+    undoButton.addEventListener('click', () => {
+        if (history.length > 0) {
+            const previousState = history.pop(); // Récupérer le dernier état
+            restoreState(previousState);
+        }
+    });
 });
