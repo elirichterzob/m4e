@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Sélectionner les wrappers des boutons, puis les boutons de schéma et d'information à l'intérieur
     const schemeButtonWrappers = document.querySelectorAll('.scheme-button-wrapper');
-    const schemeButtons = document.querySelectorAll('.scheme-button'); // Les boutons de schéma principaux
-    const infoButtons = document.querySelectorAll('.info-button'); // Les nouveaux boutons 'i'
+    const schemeButtons = document.querySelectorAll('.scheme-button');
+    const infoButtons = document.querySelectorAll('.info-button');
 
     const resetButton = document.getElementById('resetButton');
     const undoButton = document.createElement('button');
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "DETONATE CHARGES": ["GRAVE ROBBING", "RUNIC BINDING", "TAKE THE HIGHGROUND"],
         "ENSNARE": ["RESHAPE THE LAND", "SEARCH THE AREA", "FRAME JOB"],
         "MAKE IT LOOK LIKE AN ACCIDENT": ["ENSNARE", "RESHAPE THE LAND", "BREAKTHROUGH"],
-        "HARNESS THE LEYLINE": ["ASSASSINATE", "SCOUT THE ROOFTOPS", "GRAVE ROBBING"],
+        "HARNESS THE LEYLINE": ["ASSASSINATE", "SCOUT THE ROOFTOPS", "GRAVE ROBBING"], // <-- CORRECTION ICI
         "SEARCH THE AREA": ["BREAKTHROUGH", "FRAME JOB", "HARNESS THE LEYLINE"],
         "TAKE THE HIGHGROUND": ["MAKE IT LOOK LIKE AN ACCIDENT", "ENSNARE", "SEARCH THE AREA"],
         "GRAVE ROBBING": ["RUNIC BINDING", "LEAVE YOUR MARK", "MAKE IT LOOK LIKE AN ACCIDENT"],
@@ -132,8 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-
-    // Fonction pour afficher les détails du schéma avec la mise en page du PDF
     function displaySchemeDetails(schemeName) {
         const details = schemeDescriptions[schemeName];
         if (details) {
@@ -152,9 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fonctions existantes (pas de changement majeur ici)
     function deactivateAllNonActiveButtons() {
-        // La boucle doit se faire sur les boutons de schéma, pas les wrappers
         schemeButtons.forEach(button => {
             if (!button.classList.contains('active')) {
                 button.style.pointerEvents = 'none';
@@ -229,10 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateButtonStates();
     }
 
-    // Initialisation
     resetPage();
 
-    // Écouteur d'événements pour les boutons de schéma principaux
     schemeButtons.forEach(button => {
         button.addEventListener('click', () => {
             history.push({
@@ -266,14 +259,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // NOUVEL Écouteur d'événements pour les boutons 'i'
     infoButtons.forEach(button => {
         button.addEventListener('click', () => {
             const schemeName = button.dataset.scheme;
-            displaySchemeDetails(schemeName); // Afficher les détails sans changer l'état du jeu
+            displaySchemeDetails(schemeName);
         });
     });
-
 
     resetButton.addEventListener('click', resetPage);
 
