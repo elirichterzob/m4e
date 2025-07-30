@@ -10,17 +10,26 @@ body {
     box-sizing: border-box;
 }
 
+.main-content-wrapper {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .container {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 900px; /* Adjust as needed */
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 3px solid black; /* Outer border */
+    border: 3px solid black;
 }
 
 .main-title {
@@ -30,7 +39,7 @@ body {
     text-align: center;
     border: 3px solid black;
     padding: 10px 30px;
-    background-color: #e0e0e0; /* Light gray background for the title box */
+    background-color: #e0e0e0;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -38,34 +47,34 @@ body {
 
 /* Style for the reset button */
 .reset-button {
-    background-color: #f44336; /* Red color */
+    background-color: #f44336;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin-bottom: 20px; /* Space below the button */
+    margin-bottom: 20px;
     transition: background-color 0.3s ease;
 }
 
 .reset-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+    background-color: #d32f2f;
 }
 
 .scheme-grid {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between rows */
+    gap: 10px;
     width: 100%;
 }
 
 .scheme-group {
     display: flex;
     justify-content: space-around;
-    gap: 10px; /* Space between buttons in a row */
+    gap: 10px;
     width: 100%;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap;
 }
 
 .scheme-button {
@@ -78,38 +87,107 @@ body {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-    flex: 1; /* Allow buttons to grow and shrink */
-    min-width: 250px; /* Minimum width for each button */
+    flex: 1;
+    min-width: 250px;
     box-sizing: border-box;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s; /* Add opacity to transition */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
     font-size: 1.1em;
 }
 
 .scheme-button:hover {
-    background-color: #333; /* Slightly lighter black on hover */
+    background-color: #333;
 }
 
 .scheme-button.active {
-    background-color: #4CAF50; /* Green for active state */
+    background-color: #4CAF50;
     color: white;
     border-color: #388E3C;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Add a subtle shadow when active */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Nouvelle classe pour les boutons sélectionnés (cliqués) */
 .scheme-button.selected {
-    border: 3px solid red; /* Cadre rouge */
+    border: 3px solid red;
+}
+
+.scheme-details-sidebar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    border: 3px solid black;
+    box-sizing: border-box;
+    min-height: 400px; /* Assure une hauteur minimale */
+}
+
+.scheme-details-sidebar h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Styles pour les détails du schéma */
+.scheme-details-sidebar h3 { /* Titre du schéma dans la sidebar */
+    font-size: 1.4em;
+    color: #000;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.scheme-detail-section {
+    margin-bottom: 10px; /* Espace entre chaque section (REVEAL, SCORING, etc.) */
+}
+
+.scheme-detail-label {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 2px;
+    font-weight: bold; /* Le texte du label (ex: REVEAL:) est en gras */
+    text-transform: uppercase; /* Les labels en majuscules */
+}
+
+.scheme-detail-text {
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: #555;
+    white-space: pre-wrap; /* Conserve les sauts de ligne naturels */
+    padding-left: 10px; /* Indentation pour le texte des détails */
+    border-left: 2px solid #ccc; /* Petite barre verticale à gauche */
+    margin-left: 5px;
+}
+
+.info-message { /* Style pour les messages par défaut */
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding-top: 20px;
 }
 
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+    .main-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .scheme-details-sidebar {
+        margin-top: 20px;
+        max-width: 90%;
+    }
+}
+
 @media (max-width: 768px) {
     .scheme-group {
         flex-direction: column;
         align-items: center;
     }
     .scheme-button {
-        width: 90%; /* Adjust width for smaller screens */
-        min-width: unset; /* Remove min-width restriction */
+        width: 90%;
+        min-width: unset;
     }
 }
