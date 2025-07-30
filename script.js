@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const schemeButtons = document.querySelectorAll('.scheme-button');
+    // Sélectionner les wrappers des boutons, puis les boutons de schéma et d'information à l'intérieur
+    const schemeButtonWrappers = document.querySelectorAll('.scheme-button-wrapper');
+    const schemeButtons = document.querySelectorAll('.scheme-button'); // Les boutons de schéma principaux
+    const infoButtons = document.querySelectorAll('.info-button'); // Les nouveaux boutons 'i'
+
     const resetButton = document.getElementById('resetButton');
     const undoButton = document.createElement('button');
     undoButton.id = 'undoButton';
@@ -135,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (details) {
             let htmlContent = `<h3>${schemeName}</h3>`;
             for (const key in details) {
-                if (details.hasOwnProperty(key) && key !== "SCORED VP") { // Ignorer la clé "SCORED VP"
+                if (details.hasOwnProperty(key) && key !== "SCORED VP") {
                     htmlContent += `<div class="scheme-detail-section">`;
                     htmlContent += `<p class="scheme-detail-label"><strong>${key}:</strong></p>`;
                     htmlContent += `<p class="scheme-detail-text">${details[key]}</p>`;
@@ -148,8 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fonctions existantes
+    // Fonctions existantes (pas de changement majeur ici)
     function deactivateAllNonActiveButtons() {
+        // La boucle doit se faire sur les boutons de schéma, pas les wrappers
         schemeButtons.forEach(button => {
             if (!button.classList.contains('active')) {
                 button.style.pointerEvents = 'none';
@@ -227,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialisation
     resetPage();
 
+    // Écouteur d'événements pour les boutons de schéma principaux
     schemeButtons.forEach(button => {
         button.addEventListener('click', () => {
             history.push({
@@ -259,6 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // NOUVEL Écouteur d'événements pour les boutons 'i'
+    infoButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const schemeName = button.dataset.scheme;
+            displaySchemeDetails(schemeName); // Afficher les détails sans changer l'état du jeu
+        });
+    });
+
 
     resetButton.addEventListener('click', resetPage);
 

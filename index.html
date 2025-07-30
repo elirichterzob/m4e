@@ -7,40 +7,86 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-content-wrapper"> <div class="container">
+    <div class="main-content-wrapper">
+        <div class="container">
             <h1 class="main-title">SCHEMES</h1>
             <button id="resetButton" class="reset-button">Réinitialiser</button>
             <div class="scheme-grid">
                 <div class="scheme-group">
-                    <div class="scheme-button" id="BREAKTHROUGH" data-scheme="BREAKTHROUGH">BREAKTHROUGH</div>
-                    <div class="scheme-button" id="ASSASSINATE" data-scheme="ASSASSINATE">ASSASSINATE</div>
-                    <div class="scheme-button" id="DETONATE CHARGES" data-scheme="DETONATE CHARGES">DETONATE CHARGES</div>
+                    <div class="scheme-button-wrapper"> <div class="scheme-button" id="BREAKTHROUGH" data-scheme="BREAKTHROUGH">BREAKTHROUGH</div>
+                        <button class="info-button" data-scheme="BREAKTHROUGH">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="ASSASSINATE" data-scheme="ASSASSINATE">ASSASSINATE</div>
+                        <button class="info-button" data-scheme="ASSASSINATE">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="DETONATE CHARGES" data-scheme="DETONATE CHARGES">DETONATE CHARGES</div>
+                        <button class="info-button" data-scheme="DETONATE CHARGES">i</button>
+                    </div>
                 </div>
                 <div class="scheme-group">
-                    <div class="scheme-button" id="ENSNARE" data-scheme="ENSNARE">ENSNARE</div>
-                    <div class="scheme-button" id="FRAME JOB" data-scheme="FRAME JOB">FRAME JOB</div>
-                    <div class="scheme-button" id="GRAVE ROBBING" data-scheme="GRAVE ROBBING">GRAVE ROBBING</div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="ENSNARE" data-scheme="ENSNARE">ENSNARE</div>
+                        <button class="info-button" data-scheme="ENSNARE">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="FRAME JOB" data-scheme="FRAME JOB">FRAME JOB</div>
+                        <button class="info-button" data-scheme="FRAME JOB">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="GRAVE ROBBING" data-scheme="GRAVE ROBBING">GRAVE ROBBING</div>
+                        <button class="info-button" data-scheme="GRAVE ROBBING">i</button>
+                    </div>
                 </div>
                 <div class="scheme-group">
-                    <div class="scheme-button" id="HARNESS THE LEYLINE" data-scheme="HARNESS THE LEYLINE">HARNESS THE LEYLINE</div>
-                    <div class="scheme-button" id="LEAVE YOUR MARK" data-scheme="LEAVE YOUR MARK">LEAVE YOUR MARK</div>
-                    <div class="scheme-button" id="MAKE IT LOOK LIKE AN ACCIDENT" data-scheme="MAKE IT LOOK LIKE AN ACCIDENT">MAKE IT LOOK LIKE AN ACCIDENT</div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="HARNESS THE LEYLINE" data-scheme="HARNESS THE LEYLINE">HARNESS THE LEYLINE</div>
+                        <button class="info-button" data-scheme="HARNESS THE LEYLINE">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="LEAVE YOUR MARK" data-scheme="LEAVE YOUR MARK">LEAVE YOUR MARK</div>
+                        <button class="info-button" data-scheme="LEAVE YOUR MARK">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="MAKE IT LOOK LIKE AN ACCIDENT" data-scheme="MAKE IT LOOK LIKE AN ACCIDENT">MAKE IT LOOK LIKE AN ACCIDENT</div>
+                        <button class="info-button" data-scheme="MAKE IT LOOK LIKE AN ACCIDENT">i</button>
+                    </div>
                 </div>
                 <div class="scheme-group">
-                    <div class="scheme-button" id="PUBLIC DEMONSTRATION" data-scheme="PUBLIC DEMONSTRATION">PUBLIC DEMONSTRATION</div>
-                    <div class="scheme-button" id="RESHAPE THE LAND" data-scheme="RESHAPE THE LAND">RESHAPE THE LAND</div>
-                    <div class="scheme-button" id="RUNIC BINDING" data-scheme="RUNIC BINDING">RUNIC BINDING</div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="PUBLIC DEMONSTRATION" data-scheme="PUBLIC DEMONSTRATION">PUBLIC DEMONSTRATION</div>
+                        <button class="info-button" data-scheme="PUBLIC DEMONSTRATION">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="RESHAPE THE LAND" data-scheme="RESHAPE THE LAND">RESHAPE THE LAND</div>
+                        <button class="info-button" data-scheme="RESHAPE THE LAND">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="RUNIC BINDING" data-scheme="RUNIC BINDING">RUNIC BINDING</div>
+                        <button class="info-button" data-scheme="RUNIC BINDING">i</button>
+                    </div>
                 </div>
                 <div class="scheme-group">
-                    <div class="scheme-button" id="SCOUT THE ROOFTOPS" data-scheme="SCOUT THE ROOFTOPS">SCOUT THE ROOFTOPS</div>
-                    <div class="scheme-button" id="SEARCH THE AREA" data-scheme="SEARCH THE AREA">SEARCH THE AREA</div>
-                    <div class="scheme-button" id="TAKE THE HIGHGROUND" data-scheme="TAKE THE HIGHGROUND">TAKE THE HIGHGROUND</div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="SCOUT THE ROOFTOPs" data-scheme="SCOUT THE ROOFTOPS">SCOUT THE ROOFTOPS</div>
+                        <button class="info-button" data-scheme="SCOUT THE ROOFTOPS">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="SEARCH THE AREA" data-scheme="SEARCH THE AREA">SEARCH THE AREA</div>
+                        <button class="info-button" data-scheme="SEARCH THE AREA">i</button>
+                    </div>
+                    <div class="scheme-button-wrapper">
+                        <div class="scheme-button" id="TAKE THE HIGHGROUND" data-scheme="TAKE THE HIGHGROUND">TAKE THE HIGHGROUND</div>
+                        <button class="info-button" data-scheme="TAKE THE HIGHGROUND">i</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="scheme-details-sidebar"> <h2>Détails du Schéma</h2>
+        <div class="scheme-details-sidebar">
+            <h2>Détails du Schéma</h2>
             <div id="schemeDetailsContent">
-                <p>Cliquez sur un schéma pour voir ses détails ici.</p>
+                <p class="info-message">Cliquez sur un schéma pour voir ses détails ici.</p>
             </div>
         </div>
     </div>

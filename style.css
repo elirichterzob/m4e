@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align to top */
+    align-items: flex-start;
     min-height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
@@ -45,7 +45,6 @@ body {
     margin-right: auto;
 }
 
-/* Style for the reset button */
 .reset-button {
     background-color: #f44336;
     color: white;
@@ -77,6 +76,17 @@ body {
     flex-wrap: wrap;
 }
 
+.scheme-button-wrapper { /* Nouveau wrapper pour chaque bouton de schéma et son bouton info */
+    position: relative; /* Pour positionner l'info-button absolument */
+    flex: 1;
+    min-width: 250px;
+    box-sizing: border-box;
+    display: flex; /* Permet au bouton et au 'i' d'être sur la même ligne */
+    align-items: center; /* Centrer verticalement */
+    gap: 5px; /* Petit espace entre le bouton et le 'i' */
+}
+
+
 .scheme-button {
     background-color: black;
     color: white;
@@ -87,8 +97,7 @@ body {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-    flex: 1;
-    min-width: 250px;
+    flex-grow: 1; /* Permet au bouton de prendre l'espace restant */
     box-sizing: border-box;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
     font-size: 1.1em;
@@ -109,6 +118,29 @@ body {
     border: 3px solid red;
 }
 
+.info-button { /* Style pour le bouton 'i' */
+    background-color: #007BFF; /* Couleur bleue */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Rond */
+    width: 30px; /* Taille du bouton */
+    height: 30px;
+    min-width: 30px; /* Pour éviter qu'il ne rétrécisse trop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    z-index: 1; /* Pour être sûr qu'il est au-dessus du bouton principal si chevauchement */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Petite ombre */
+}
+
+.info-button:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
 .scheme-details-sidebar {
     background-color: white;
     padding: 20px;
@@ -118,7 +150,7 @@ body {
     max-width: 350px;
     border: 3px solid black;
     box-sizing: border-box;
-    min-height: 400px; /* Assure une hauteur minimale */
+    min-height: 400px;
 }
 
 .scheme-details-sidebar h2 {
@@ -128,8 +160,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Styles pour les détails du schéma */
-.scheme-details-sidebar h3 { /* Titre du schéma dans la sidebar */
+.scheme-details-sidebar h3 {
     font-size: 1.4em;
     color: #000;
     text-align: center;
@@ -140,34 +171,33 @@ body {
 }
 
 .scheme-detail-section {
-    margin-bottom: 10px; /* Espace entre chaque section (REVEAL, SCORING, etc.) */
+    margin-bottom: 10px;
 }
 
 .scheme-detail-label {
     font-size: 1em;
     color: #333;
     margin-bottom: 2px;
-    font-weight: bold; /* Le texte du label (ex: REVEAL:) est en gras */
-    text-transform: uppercase; /* Les labels en majuscules */
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .scheme-detail-text {
     font-size: 0.9em;
     line-height: 1.5;
     color: #555;
-    white-space: pre-wrap; /* Conserve les sauts de ligne naturels */
-    padding-left: 10px; /* Indentation pour le texte des détails */
-    border-left: 2px solid #ccc; /* Petite barre verticale à gauche */
+    white-space: pre-wrap;
+    padding-left: 10px;
+    border-left: 2px solid #ccc;
     margin-left: 5px;
 }
 
-.info-message { /* Style pour les messages par défaut */
+.info-message {
     text-align: center;
     color: #777;
     font-style: italic;
     padding-top: 20px;
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
@@ -179,15 +209,19 @@ body {
         margin-top: 20px;
         max-width: 90%;
     }
+    .scheme-button-wrapper { /* Ajuster le wrapper en mode colonne */
+        width: 90%; /* Pour qu'il prenne plus de place */
+        justify-content: center; /* Centrer le contenu */
+    }
+    .scheme-button {
+        flex-grow: unset; /* Retirer le flex-grow pour ne pas qu'il s'étire trop */
+        width: 100%; /* Ajuster la largeur */
+    }
 }
 
 @media (max-width: 768px) {
     .scheme-group {
         flex-direction: column;
         align-items: center;
-    }
-    .scheme-button {
-        width: 90%;
-        min-width: unset;
     }
 }
